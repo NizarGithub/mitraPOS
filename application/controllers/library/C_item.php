@@ -136,6 +136,7 @@ class C_item extends MY_Controller {
 	}
 
 	public function loadDataWhere(){
+		$outletId_param = @$this->input->get('outletId');
 		$select = '*';
 		$where['data'][] = array(
 			'column' => 'item_id',
@@ -147,25 +148,88 @@ class C_item extends MY_Controller {
 			foreach ($query->result() as $val) {
 
 				// CARI DETAIL
-				$where_detail['data'][] = array(
-					'column' => 'item_id',
-					'param'	 => $val->item_id
-				);
-				$query_detail = $this->mod->select('*','m_itemdet', NULL, $where_detail);
-				$response['val2'] = array();
-				if ($query_detail) {
-					foreach ($query_detail->result() as $val2) {
+				if (strlen($outletId_param) > 0) {
+					$join_detail['data'][] = array(
+						'table' => 's_stok b',
+						'join'	=> 'b.itemdet_id = a.itemdet_id',
+						'type'	=> 'left'
+					);
+					$where_detail['data'][] = array(
+						'column' => 'a.item_id',
+						'param'	 => $val->item_id
+					);
+					$where_detail['data'][] = array(
+						'column' => 'b.outlet_id',
+						'param'	 => $outletId_param
+					);
+					$query_detail = $this->mod->select('a.*, b.stok_id, b.outlet_id, b.stok_jumlah','m_itemdet a', $join_detail, $where_detail);
+					$response['val2'] = array();
+					if ($query_detail) {
+						foreach ($query_detail->result() as $val2) {
 
-						$response['val2'][] = array(
-							'itemdet_id'			=> $val2->itemdet_id,
-							'itemdet_nama' 			=> $val2->itemdet_nama,
-							'itemdet_harga'			=> $val2->itemdet_harga,
-							'itemdet_sku' 			=> $val2->itemdet_sku,
-							'itemdet_istrack_stock' => $val2->itemdet_istrack_stock,
-							'itemdet_islimit_alert' => $val2->itemdet_islimit_alert,
-							'itemdet_limit' 		=> $val2->itemdet_limit,
+							$response['val2'][] = array(
+								'itemdet_id'			=> $val2->itemdet_id,
+								'itemdet_nama' 			=> $val2->itemdet_nama,
+								'itemdet_harga'			=> $val2->itemdet_harga,
+								'itemdet_sku' 			=> $val2->itemdet_sku,
+								'itemdet_istrack_stock' => $val2->itemdet_istrack_stock,
+								'itemdet_islimit_alert' => $val2->itemdet_islimit_alert,
+								'itemdet_limit' 		=> $val2->itemdet_limit,
+								'stok_id' 				=> $val2->stok_id,
+								'outlet_id' 			=> $val2->outlet_id,
+								'stok_jumlah' 			=> $val2->stok_jumlah,
+							);
+
+						}
+					} else {
+						if (@$where_detail) {
+							unset($where_detail);
+						}
+						$where_detail['data'][] = array(
+							'column' => 'item_id',
+							'param'	 => $val->item_id
 						);
+						$query_detail = $this->mod->select('*','m_itemdet', NULL, $where_detail);
+						if ($query_detail) {
+							foreach ($query_detail->result() as $val2) {
 
+								$response['val2'][] = array(
+									'itemdet_id'			=> $val2->itemdet_id,
+									'itemdet_nama' 			=> $val2->itemdet_nama,
+									'itemdet_harga'			=> $val2->itemdet_harga,
+									'itemdet_sku' 			=> $val2->itemdet_sku,
+									'itemdet_istrack_stock' => $val2->itemdet_istrack_stock,
+									'itemdet_islimit_alert' => $val2->itemdet_islimit_alert,
+									'itemdet_limit' 		=> $val2->itemdet_limit,
+									'stok_id' 				=> 0,
+									'outlet_id' 			=> $outletId_param,
+									'stok_jumlah' 			=> 0,
+								);
+
+							}
+						}
+					}
+				} else {
+					$where_detail['data'][] = array(
+						'column' => 'item_id',
+						'param'	 => $val->item_id
+					);
+					$query_detail = $this->mod->select('*','m_itemdet', NULL, $where_detail);
+					$response['val2'] = array();
+					if ($query_detail) {
+						foreach ($query_detail->result() as $val2) {
+
+							$response['val2'][] = array(
+								'itemdet_id'			=> $val2->itemdet_id,
+								'itemdet_nama' 			=> $val2->itemdet_nama,
+								'itemdet_harga'			=> $val2->itemdet_harga,
+								'itemdet_sku' 			=> $val2->itemdet_sku,
+								'itemdet_istrack_stock' => $val2->itemdet_istrack_stock,
+								'itemdet_islimit_alert' => $val2->itemdet_islimit_alert,
+								'itemdet_limit' 		=> $val2->itemdet_limit,
+							);
+
+						}
 					}
 				}
 
@@ -184,6 +248,8 @@ class C_item extends MY_Controller {
 	}
 
 	public function loadDataSelect($tipe){
+		$itemId_param = @$this->input->get('itemId');
+
 		if ($tipe == 1) {
 
 			$param = $this->input->get('q');
@@ -209,10 +275,29 @@ class C_item extends MY_Controller {
 			$response['items'] = array();
 			if ($query<>false) {
 				foreach ($query->result() as $val) {
-					$response['items'][] = array(
-						'id'	=> $val->item_id,
-						'text'	=> $val->item_nama
-					);
+					if (sizeof($itemId_param) > 0) {
+						$flag = 0;
+						$i = 0;
+						$itemId_paramTemp = 0;
+						do {
+							if ($val->item_id == $itemId_param[$i]) {
+								$itemId_paramTemp = $val->item_id;
+								$flag = 1;
+							}
+							$i++;
+						} while ( $i < sizeof($itemId_param) && $flag == 0);
+						if ($flag == 0) {
+							$response['items'][] = array(
+								'id'	=> $val->item_id,
+								'text'	=> $val->item_nama
+							);
+						}
+					} else {
+						$response['items'][] = array(
+							'id'	=> $val->item_id,
+							'text'	=> $val->item_nama
+						);
+					}
 				}
 				$response['status'] = '200';
 			}
@@ -232,10 +317,29 @@ class C_item extends MY_Controller {
 			$response['items'] = array();
 			if ($query<>false) {
 				foreach ($query->result() as $val) {
-					$response['items'][] = array(
-						'id'	=> $val->item_id,
-						'text'	=> $val->item_nama
-					);
+					if (sizeof($itemId_param) > 0) {
+						$flag = 0;
+						$i = 0;
+						$itemId_paramTemp = 0;
+						do {
+							if ($val->item_id == $itemId_param[$i]) {
+								$itemId_paramTemp = $val->item_id;
+								$flag = 1;
+							}
+							$i++;
+						} while ( $i < sizeof($itemId_param) && $flag == 0);
+						if ($flag == 0) {
+							$response['items'][] = array(
+								'id'	=> $val->item_id,
+								'text'	=> $val->item_nama
+							);
+						}
+					} else {
+						$response['items'][] = array(
+							'id'	=> $val->item_id,
+							'text'	=> $val->item_nama
+						);
+					}
 				}
 				$response['status'] = '200';
 			}
@@ -260,15 +364,32 @@ class C_item extends MY_Controller {
 			if($update->status) {
 				$response['status'] = '200';
 				$id_hdr = $id;
-				$delete = $this->mod->delete_data_table('m_itemdet', $where);
+				// $delete = $this->mod->delete_data_table('m_itemdet', $where);
 				// INSERT DETAIL
-				for ($i = 0; $i < sizeof($this->input->post('itemdet_harga', TRUE)); $i++) { 
-					$data_detail = $this->general_post_data2(1, $id_hdr, $i);
-					$insert_detail = $this->mod->insert_data_table('m_itemdet', NULL, $data_detail);
-					if($insert_detail->status) {
-						$response['status'] = '200';
+				for ($i = 0; $i < sizeof($this->input->post('itemdet_id', TRUE)); $i++) { 
+					if (strlen($this->input->post('itemdet_id', TRUE)[$i]) > 0) {
+						$data_detail = $this->general_post_data2(2, $id_hdr, $i, $this->input->post('itemdet_id', TRUE)[$i]);
+						if (@$where_detail) {
+							unset($where_detail);
+						}
+						$where_detail['data'][] = array(
+							'column' => 'itemdet_id',
+							'param'	 => $this->input->post('itemdet_id', TRUE)[$i]
+						);
+						$update_detail = $this->mod->update_data_table('m_itemdet', $where_detail, $data_detail);
+						if($update_detail->status) {
+							$response['status'] = '200';
+						} else {
+							$response['status'] = '204';
+						}
 					} else {
-						$response['status'] = '204';
+						$data_detail = $this->general_post_data2(1, $id_hdr, $i);
+						$insert_detail = $this->mod->insert_data_table('m_itemdet', NULL, $data_detail);
+						if($insert_detail->status) {
+							$response['status'] = '200';
+						} else {
+							$response['status'] = '204';
+						}	
 					}
 				}
 			} else {
@@ -308,7 +429,7 @@ class C_item extends MY_Controller {
 				$response['status'] = '204';
 			}
 		}
-		
+
 		echo json_encode($response);
 	}
 	public function nonaktifData(){
@@ -433,6 +554,20 @@ class C_item extends MY_Controller {
 				'itemdet_updated_date' 	=> date('Y-m-d'),
 				'itemdet_updated_time' 	=> date('H:i:s'),
 				'itemdet_revised' 		=> 0,
+			);
+		} else if ($type == 2) {
+			$data = array(
+				'item_id' 				=> $idHdr,
+				'itemdet_nama' 			=> $this->input->post('itemdet_nama', TRUE)[$seq],
+				'itemdet_harga'			=> $this->input->post('itemdet_harga', TRUE)[$seq],
+				'itemdet_sku' 			=> $this->input->post('itemdet_sku', TRUE)[$seq],
+				'itemdet_istrack_stock'	=> $this->input->post('itemdet_istrack_stock', TRUE)[$seq],
+				'itemdet_islimit_alert'	=> $this->input->post('itemdet_islimit_alert', TRUE)[$seq],
+				'itemdet_limit' 		=> $this->input->post('itemdet_limit', TRUE)[$seq],
+				'itemdet_updated_by'	=> $this->session->userdata('employee_username'),
+				'itemdet_updated_date' 	=> date('Y-m-d'),
+				'itemdet_updated_time' 	=> date('H:i:s'),
+				'itemdet_revised' 		=> $rev,
 			);
 		}
 

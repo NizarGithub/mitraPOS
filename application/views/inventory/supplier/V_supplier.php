@@ -72,6 +72,8 @@
                                               <th> No </th>
                                               <th> Nama </th>
                                               <th> Alamat </th>
+                                              <th> Telepon </th>
+                                              <th> Email </th>
                                               <th> Status </th>
                                               <th> Action </th>
                                           </tr>
@@ -104,7 +106,7 @@
                                             <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button> Your form validation is successful! </div>
-                                        <input type="hidden" id="url" value="Library/Outlet/postData/">
+                                        <input type="hidden" id="url" value="Inventory/Suppliers/postData/">
                                         <input type="hidden" name="kode" readonly />
 
                                         <div class="form-group">
@@ -114,19 +116,7 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <input type="text" class="form-control" name="outlet_nama" required />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Alamat
-                                                <span class="required"> * </span>
-                                            </label>
-                                            <div class="col-md-8">
-                                                <div class="input-icon right">
-                                                    <i class="fa"></i>
-                                                    <textarea class="form-control" rows="3" name="outlet_alamat" required></textarea>
+                                                    <input type="text" class="form-control" name="supplier_nama" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -138,7 +128,30 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <input type="text" class="form-control telp" name="outlet_telepon" required />
+                                                    <input type="text" class="form-control telp" name="supplier_telepon" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Email
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <input type="email" class="form-control" name="supplier_email" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Alamat
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <textarea class="form-control" rows="3" name="supplier_alamat" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,18 +163,30 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <input type="text" class="form-control" name="outlet_kota" required />
+                                                    <input type="text" class="form-control" name="supplier_kota" required />
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">Keterangan
+                                            <label class="control-label col-md-4">Provinsi
+                                                <span class="required"> * </span>
                                             </label>
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <textarea class="form-control" rows="3" name="outlet_keterangan"></textarea>
+                                                    <input type="text" class="form-control" name="supplier_provinsi" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Kode Pos
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <input type="text" class="form-control" name="supplier_kodepos" />
                                                 </div>
                                             </div>
                                         </div>
@@ -173,7 +198,7 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <select class="form-control select2" name="outlet_status_aktif" aria-required="true" aria-describedby="select-error" required>
+                                                    <select class="form-control select2" name="supplier_status_aktif" aria-required="true" aria-describedby="select-error" required>
                                                         <option id="aktif" value="y" selected> Aktif </option>
                                                         <option id="nonaktif" value="n"> Non Aktif </option>
                                                     </select>
@@ -265,13 +290,15 @@
                     "processing": true,
                     "serverSide": true,
                     ajax: {
-                      url: '<?php echo base_url();?>Library/Outlet/loadData/'
+                      url: '<?php echo base_url();?>Inventory/Suppliers/loadData/'
                     },
                     "columns": [
                       {"name": "no","orderable": false,"searchable": false,  "className": "text-center", "width": "5%"},
-                      {"name": "outlet_nama"},
-                      {"name": "outlet_alamat"},
-                      {"name": "outlet_status_aktif"},
+                      {"name": "supplier_nama"},
+                      {"name": "supplier_alamat"},
+                      {"name": "supplier_telepon"},
+                      {"name": "supplier_email"},
+                      {"name": "supplier_status_aktif"},
                       {"name": "action","orderable": false,"searchable": false, "className": "text-center", "width": "15%"}
                     ],
                     // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -333,20 +360,22 @@
                 }
                 $.ajax({
                     type : "GET",
-                    url  : '<?php echo base_url();?>Library/Outlet/loadDataWhere/',
+                    url  : '<?php echo base_url();?>Inventory/Suppliers/loadDataWhere/',
                     data : "id="+id,
                     dataType : "json",
                     success:function(data){
                         for(var i=0; i<data.val.length;i++){
                             document.getElementsByName("kode")[0].value = data.val[i].kode;
-                            document.getElementsByName("outlet_nama")[0].value = data.val[i].outlet_nama;
-                            document.getElementsByName("outlet_alamat")[0].value = data.val[i].outlet_alamat;
-                            document.getElementsByName("outlet_telepon")[0].value = data.val[i].outlet_telepon;
-                            document.getElementsByName("outlet_kota")[0].value = data.val[i].outlet_kota;
-                            document.getElementsByName("outlet_keterangan")[0].value = data.val[i].outlet_keterangan;
-                            if (data.val[i].outlet_status_aktif == 'y') {
+                            document.getElementsByName("supplier_nama")[0].value = data.val[i].supplier_nama;
+                            document.getElementsByName("supplier_telepon")[0].value = data.val[i].supplier_telepon;
+                            document.getElementsByName("supplier_email")[0].value = data.val[i].supplier_email;
+                            document.getElementsByName("supplier_alamat")[0].value = data.val[i].supplier_alamat;
+                            document.getElementsByName("supplier_kota")[0].value = data.val[i].supplier_kota;
+                            document.getElementsByName("supplier_provinsi")[0].value = data.val[i].supplier_provinsi;
+                            document.getElementsByName("supplier_kodepos")[0].value = data.val[i].supplier_kodepos;
+                            if (data.val[i].supplier_status_aktif == 'y') {
                                 document.getElementById('aktif').selected = true;
-                            } else if (data.val[i].outlet_status_aktif == 'n') {
+                            } else if (data.val[i].supplier_status_aktif == 'n') {
                                 document.getElementById('nonaktif').selected = true;
                             }
                         }
@@ -355,11 +384,11 @@
             }
 
             function setNonaktif(id) {
-              nonaktifData('Library/Outlet/nonaktifData', id);
+              nonaktifData('Inventory/Suppliers/nonaktifData', id);
             }
 
             function setAktif(id) {
-              aktifData('Library/Outlet/aktifData', id);
+              aktifData('Inventory/Suppliers/aktifData', id);
             }
 
         </script>

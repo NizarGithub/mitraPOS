@@ -239,7 +239,10 @@ var MyFormValidation = function () {
 
 
 jQuery(document).ready(function() {   
-    MyFormValidation.init();
+    if (document.getElementById('formAdd')) {
+        MyFormValidation.init();
+    }
+    
 });
 
 

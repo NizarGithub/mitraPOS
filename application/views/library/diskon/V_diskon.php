@@ -70,9 +70,9 @@
                                       <thead>
                                           <tr>
                                               <th> No </th>
-                                              <th> Nama Diskon </th>
+                                              <th> Nama </th>
                                               <th> Outlet </th>
-                                              <th> Status Diskon </th>
+                                              <th> Status </th>
                                               <th> Action </th>
                                           </tr>
                                       </thead>

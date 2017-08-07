@@ -70,9 +70,9 @@
                                       <thead>
                                           <tr>
                                               <th> No </th>
-                                              <th> Nama Item </th>
+                                              <th> Nama </th>
                                               <th> Kategori </th>
-                                              <th> Status Item </th>
+                                              <th> Status </th>
                                               <th> Action </th>
                                           </tr>
                                       </thead>
@@ -306,6 +306,7 @@
                     $("#tableTbody").append(' \
                         <tr> \
                             <td width="50%"> \
+                                <input type="hidden" id="itemdet_id1" name="itemdet_id[]" readonly /> \
                                 <input type="text" class="form-control money" id="itemdet_harga1" name="itemdet_harga[]" placeholder="Harga" required /> \
                             </td> \
                             <td> \
@@ -359,6 +360,7 @@
                     $("#tableTbody").append(' \
                         <tr> \
                             <td width="50%"> \
+                                <input type="hidden" id="itemdet_id1" name="itemdet_id[]" readonly /> \
                                 <input type="text" class="form-control money" id="itemdet_harga1" name="itemdet_harga[]" placeholder="Harga" required /> \
                             </td> \
                             <td> \
@@ -412,6 +414,7 @@
                     $("#tableTbody").append(' \
                         <tr> \
                             <td width="50%"> \
+                                <input type="hidden" id="itemdet_id1" name="itemdet_id[]" readonly /> \
                                 <input type="text" class="form-control money" id="itemdet_harga1" name="itemdet_harga[]" placeholder="Harga" required /> \
                             </td> \
                             <td> \
@@ -455,16 +458,26 @@
                         $("#tableTbody").empty();
                         $("#tableTbody2").empty();
                         $("#jml_detail").val(1);
-                    } else {
-                        $("#jml_detail").val(0);
+                    // } else {
+                    //     $("#jml_detail").val(0);
                     }
                     
                     itemDetail = $("#jml_detail").val();
+                    console.log(itemDetail);
                     if (itemDetail == 1) {
                         jmlItemDetail++;
+                        if (jmlItemDetail == 1) {
+                            var button = '';
+                        } else {
+                            var button = '\
+                            <button class="btn btn-default" type="button" title="Remove Detail" onclick="removeItemDetail('+jmlItemDetail+')">\
+                                <i class="fa fa-ban" aria-hidden="true"></i> \
+                            </button>';
+                        }
                         $("#tableTbody").append(' \
                             <tr id="detail'+jmlItemDetail+'"> \
                                 <td width="30%"> \
+                                    <input type="hidden" id="itemdet_id'+jmlItemDetail+'" name="itemdet_id[]" readonly /> \
                                     <input type="text" class="form-control" id="itemdet_nama'+jmlItemDetail+'" name="itemdet_nama[]" placeholder="Nama" onchange="copyName('+jmlItemDetail+')" required /> \
                                 </td> \
                                 <td> \
@@ -474,9 +487,7 @@
                                     <input type="text" class="form-control" id="itemdet_sku'+jmlItemDetail+'" name="itemdet_sku[]" placeholder="SKU" required /> \
                                 </td> \
                                 <td width="10%"class="text-center"> \
-                                    <button class="btn btn-default" type="button" title="Remove Detail" onclick="removeItemDetail('+jmlItemDetail+')">\
-                                        <i class="fa fa-ban" aria-hidden="true"></i> \
-                                    </button> \
+                                    '+button+'\
                                 </td> \
                             </tr> \
                         ');
@@ -614,6 +625,7 @@
                 var parent2 = document.getElementById("tableTbody2");
                 for (var i = 1; i <= jmlItemDetail; i++) {
                     if (i >= idx && i < jmlItemDetail) {
+                        document.getElementById("itemdet_id"+i).value = document.getElementById("itemdet_id"+(i+1)).value;
                         document.getElementById("itemdet_nama"+i).value = document.getElementById("itemdet_nama"+(i+1)).value;
                         document.getElementById("itemdet_harga"+i).value = document.getElementById("itemdet_harga"+(i+1)).value;
                         document.getElementById("itemdet_sku"+i).value = document.getElementById("itemdet_sku"+(i+1)).value;
@@ -651,6 +663,7 @@
                     $("#tableTbody").append(' \
                         <tr> \
                             <td width="50%"> \
+                                <input type="hidden" id="itemdet_id1" name="itemdet_id[]" readonly /> \
                                 <input type="text" class="form-control money" id="itemdet_harga1" name="itemdet_harga[]" placeholder="Harga" required /> \
                             </td> \
                             <td> \
@@ -752,6 +765,7 @@
                             $("#tableTbody").append(' \
                                 <tr> \
                                     <td width="50%"> \
+                                        <input type="hidden" id="itemdet_id1" name="itemdet_id[]" readonly /> \
                                         <input type="text" class="form-control money" id="itemdet_harga1" name="itemdet_harga[]" placeholder="Harga" required /> \
                                     </td> \
                                     <td> \
@@ -806,9 +820,18 @@
 
                             if (data.val2.length > 1) {
                                 $("#jml_detail").val(1);
+                                if (i == 0) {
+                                    var button = '';
+                                } else {
+                                    var button = ' \
+                                    <button class="btn btn-default" type="button" title="Remove Detail" onclick="removeItemDetail('+jmlItemDetail+')">\
+                                        <i class="fa fa-ban" aria-hidden="true"></i> \
+                                    </button>';
+                                }
                                 $("#tableTbody").append(' \
                                     <tr id="detail'+jmlItemDetail+'"> \
                                         <td width="30%"> \
+                                            <input type="hidden" id="itemdet_id'+jmlItemDetail+'" name="itemdet_id[]" value="'+data.val2[i].itemdet_id+'" readonly /> \
                                             <input type="text" class="form-control" id="itemdet_nama'+jmlItemDetail+'" name="itemdet_nama[]" placeholder="Nama" onchange="copyName('+jmlItemDetail+')" value="'+data.val2[i].itemdet_nama+'" required /> \
                                         </td> \
                                         <td> \
@@ -818,9 +841,7 @@
                                             <input type="text" class="form-control" id="itemdet_sku'+jmlItemDetail+'" name="itemdet_sku[]" placeholder="SKU" value="'+data.val2[i].itemdet_sku+'" required /> \
                                         </td> \
                                         <td width="10%"class="text-center"> \
-                                            <button class="btn btn-default" type="button" title="Remove Detail" onclick="removeItemDetail('+jmlItemDetail+')">\
-                                                <i class="fa fa-ban" aria-hidden="true"></i> \
-                                            </button> \
+                                            '+button+'\
                                         </td> \
                                     </tr> \
                                 ');
@@ -853,6 +874,7 @@
                                 $("#tableTbody").append(' \
                                     <tr> \
                                         <td width="50%"> \
+                                            <input type="hidden" id="itemdet_id1" name="itemdet_id[]" value="'+data.val2[i].itemdet_id+'" readonly /> \
                                             <input type="text" class="form-control money" id="itemdet_harga1" name="itemdet_harga[]" placeholder="Harga" value="'+data.val2[i].itemdet_harga+'" required /> \
                                         </td> \
                                         <td> \

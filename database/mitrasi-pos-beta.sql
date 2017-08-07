@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90603
 File Encoding         : 65001
 
-Date: 2017-08-01 05:38:28
+Date: 2017-08-08 04:10:12
 */
 
 
@@ -81,9 +81,9 @@ CREATE SEQUENCE "public"."m_itemdet_itemdet_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 22
+ START 23
  CACHE 1;
-SELECT setval('"public"."m_itemdet_itemdet_id_seq"', 22, true);
+SELECT setval('"public"."m_itemdet_itemdet_id_seq"', 23, true);
 
 -- ----------------------------
 -- Sequence structure for m_kategori_kategori_id_seq
@@ -122,6 +122,18 @@ CREATE SEQUENCE "public"."m_pajak_pajak_id_seq"
 SELECT setval('"public"."m_pajak_pajak_id_seq"', 1, true);
 
 -- ----------------------------
+-- Sequence structure for m_supplier_supplier_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."m_supplier_supplier_id_seq";
+CREATE SEQUENCE "public"."m_supplier_supplier_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+SELECT setval('"public"."m_supplier_supplier_id_seq"', 1, true);
+
+-- ----------------------------
 -- Sequence structure for s_menu_menu_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."s_menu_menu_id_seq";
@@ -129,9 +141,9 @@ CREATE SEQUENCE "public"."s_menu_menu_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 7
+ START 11
  CACHE 1;
-SELECT setval('"public"."s_menu_menu_id_seq"', 7, true);
+SELECT setval('"public"."s_menu_menu_id_seq"', 11, true);
 
 -- ----------------------------
 -- Sequence structure for s_privilege_privilege_id_seq
@@ -142,6 +154,64 @@ CREATE SEQUENCE "public"."s_privilege_privilege_id_seq"
  MINVALUE 1
  MAXVALUE 9223372036854775807
  START 20
+ CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for s_stok_stok_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."s_stok_stok_id_seq";
+CREATE SEQUENCE "public"."s_stok_stok_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 3
+ CACHE 1;
+SELECT setval('"public"."s_stok_stok_id_seq"', 3, true);
+
+-- ----------------------------
+-- Sequence structure for t_adjustment_adjustment_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."t_adjustment_adjustment_id_seq";
+CREATE SEQUENCE "public"."t_adjustment_adjustment_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+SELECT setval('"public"."t_adjustment_adjustment_id_seq"', 1, true);
+
+-- ----------------------------
+-- Sequence structure for t_adjustmentdet_adjustmentdet_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."t_adjustmentdet_adjustmentdet_id_seq";
+CREATE SEQUENCE "public"."t_adjustmentdet_adjustmentdet_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 3
+ CACHE 1;
+SELECT setval('"public"."t_adjustmentdet_adjustmentdet_id_seq"', 3, true);
+
+-- ----------------------------
+-- Sequence structure for t_transfer_transfer_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."t_transfer_transfer_id_seq";
+CREATE SEQUENCE "public"."t_transfer_transfer_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for t_transferdet_transferdet_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."t_transferdet_transferdet_id_seq";
+CREATE SEQUENCE "public"."t_transferdet_transferdet_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
  CACHE 1;
 
 -- ----------------------------
@@ -303,9 +373,9 @@ COMMENT ON COLUMN "public"."m_item"."item_status_aktif" IS 'n = Tidak Aktif, y =
 -- Records of m_item
 -- ----------------------------
 INSERT INTO "public"."m_item" VALUES ('1', 'Sate', '0', '0', '-', 'y', '2017-08-01', '03:53:51', 'admin', '2017-08-01', '04:38:08', 'admin', '7');
-INSERT INTO "public"."m_item" VALUES ('2', 'Bakso', '0', '0', '', 'y', '2017-08-01', '03:56:24', 'admin', '2017-08-01', '04:39:10', 'admin', '3');
+INSERT INTO "public"."m_item" VALUES ('2', 'Bakso', '0', '0', '', 'y', '2017-08-01', '03:56:24', 'admin', '2017-08-07', '23:08:23', 'admin', '11');
 INSERT INTO "public"."m_item" VALUES ('3', 'Item 1', '0', '0', '', 'y', '2017-08-01', '04:40:15', 'admin', '2017-08-01', '04:46:38', 'admin', '1');
-INSERT INTO "public"."m_item" VALUES ('18', 'Item 2', '0', '0', '', 'y', '2017-08-01', '05:24:52', 'admin', '2017-08-01', '05:25:42', 'admin', '1');
+INSERT INTO "public"."m_item" VALUES ('18', 'Item 2', '0', '0', '', 'y', '2017-08-01', '05:24:52', 'admin', '2017-08-07', '23:17:16', 'admin', '2');
 
 -- ----------------------------
 -- Table structure for m_itemdet
@@ -341,10 +411,11 @@ COMMENT ON COLUMN "public"."m_itemdet"."itemdet_status_aktif" IS 'n = Tidak Akti
 -- ----------------------------
 INSERT INTO "public"."m_itemdet" VALUES ('7', 'Ayam', '1', '10000', '-', 'y', 'y', '10', 'y', '2017-08-01', '04:38:08', 'admin', '2017-08-01', '04:38:08', 'admin', '0');
 INSERT INTO "public"."m_itemdet" VALUES ('8', 'Kambing', '1', '20000', '-', 'y', 'y', '20', 'y', '2017-08-01', '04:38:08', 'admin', '2017-08-01', '04:38:08', 'admin', '0');
-INSERT INTO "public"."m_itemdet" VALUES ('9', 'Jenggot', '2', '10000', '-', 'y', 'y', '10', 'y', '2017-08-01', '04:39:10', 'admin', '2017-08-01', '04:39:10', 'admin', '0');
-INSERT INTO "public"."m_itemdet" VALUES ('10', 'Sapi', '2', '10000', '-', 'y', 'y', '10', 'y', '2017-08-01', '04:39:10', 'admin', '2017-08-01', '04:39:10', 'admin', '0');
+INSERT INTO "public"."m_itemdet" VALUES ('9', 'Kikil', '2', '10000', '-', 'y', 'y', '10', 'y', '2017-08-01', '04:39:10', 'admin', '2017-08-07', '23:08:23', 'admin', '3');
+INSERT INTO "public"."m_itemdet" VALUES ('10', 'Sapi', '2', '10000', '-', 'y', 'y', '10', 'y', '2017-08-01', '04:39:10', 'admin', '2017-08-07', '23:08:23', 'admin', '3');
 INSERT INTO "public"."m_itemdet" VALUES ('12', null, '3', '12000', '-', 'n', 'n', '10', 'y', '2017-08-01', '04:46:38', 'admin', '2017-08-01', '04:46:38', 'admin', '0');
-INSERT INTO "public"."m_itemdet" VALUES ('22', null, '18', '12000', '-', 'y', 'y', '10', 'y', '2017-08-01', '05:25:42', 'admin', '2017-08-01', '05:25:42', 'admin', '0');
+INSERT INTO "public"."m_itemdet" VALUES ('22', null, '18', '20000', '-', 'y', 'y', '10', 'y', '2017-08-01', '05:25:42', 'admin', '2017-08-07', '23:17:17', 'admin', '1');
+INSERT INTO "public"."m_itemdet" VALUES ('23', 'Mercon', '2', '15000', '-', 'y', 'y', '10', 'y', '2017-08-07', '23:08:23', 'admin', '2017-08-07', '23:08:23', 'admin', '0');
 
 -- ----------------------------
 -- Table structure for m_kategori
@@ -439,6 +510,38 @@ COMMENT ON COLUMN "public"."m_pajak"."pajak_status_aktif" IS 'n = Tidak Aktif, y
 INSERT INTO "public"."m_pajak" VALUES ('1', 'PPN', '2.50', '0', '', 'y', '2017-07-28', '00:55:55', 'admin', '2017-07-28', '02:01:32', 'admin', '6');
 
 -- ----------------------------
+-- Table structure for m_supplier
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."m_supplier";
+CREATE TABLE "public"."m_supplier" (
+"supplier_id" int4 DEFAULT nextval('m_supplier_supplier_id_seq'::regclass) NOT NULL,
+"supplier_nama" varchar(255) COLLATE "default",
+"supplier_telepon" varchar(255) COLLATE "default",
+"supplier_email" varchar(255) COLLATE "default",
+"supplier_alamat" varchar(255) COLLATE "default",
+"supplier_kota" varchar(255) COLLATE "default",
+"supplier_provinsi" varchar(255) COLLATE "default",
+"supplier_kodepos" varchar(255) COLLATE "default",
+"supplier_status_aktif" char(1) COLLATE "default" DEFAULT 'y'::bpchar,
+"supplier_created_date" date,
+"supplier_created_time" time(6),
+"supplier_created_by" varchar(255) COLLATE "default",
+"supplier_updated_date" date,
+"supplier_updated_time" time(6),
+"supplier_updated_by" varchar COLLATE "default",
+"supplier_revised" int4 DEFAULT 0
+)
+WITH (OIDS=FALSE)
+
+;
+COMMENT ON COLUMN "public"."m_supplier"."supplier_status_aktif" IS 'n = Tidak, y = Ya';
+
+-- ----------------------------
+-- Records of m_supplier
+-- ----------------------------
+INSERT INTO "public"."m_supplier" VALUES ('1', 'Supplier 1', '031', 'supplier1@gmail.com', 'Jl Basuki Rahmat', 'Surabaya', 'Jawa Timur', '', 'y', '2017-08-06', '21:42:47', 'admin', '2017-08-06', '21:42:59', 'admin', '2');
+
+-- ----------------------------
 -- Table structure for s_menu
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."s_menu";
@@ -478,6 +581,10 @@ INSERT INTO "public"."s_menu" VALUES ('4', 'Diskon', '4', '1', '1', 'diskon', 'L
 INSERT INTO "public"."s_menu" VALUES ('5', 'Pajak', '5', '1', '1', 'pajak', 'Library/Pajak', 'Library/Pajak', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('6', 'Gratuity', '6', '1', '1', 'gratuity', 'Library/Gratuity', 'Library/Gratuity', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('7', 'Item', '3', '1', '1', 'item', 'Library/Item', 'Library/Item', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('8', 'Inventory', '2', '0', '0', 'inventory', 'Inventory', 'Inventory', 'bg-blue-madison', 'fa fa-archive', 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('9', 'Suppliers', '1', '1', '8', 'suppliers', 'Inventory', 'Inventory/Suppliers', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('10', 'Transfer', '2', '1', '8', 'transfer', 'Inventory/Transfer', 'Inventory/Transfer', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('11', 'Adjustment', '3', '1', '8', 'adjustment', 'Inventory/Adjustment', 'Inventory/Adjustment', null, null, 'y', null, null, null, null, null, null, '0');
 
 -- ----------------------------
 -- Table structure for s_privilege
@@ -534,6 +641,145 @@ INSERT INTO "public"."s_privilege" VALUES ('19', '1', 'y', 'y', 'y', 'y', 'y', n
 INSERT INTO "public"."s_privilege" VALUES ('20', '1', 'y', 'y', 'y', 'y', 'y', null, null, null, null, null, null, '0', '20');
 
 -- ----------------------------
+-- Table structure for s_stok
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."s_stok";
+CREATE TABLE "public"."s_stok" (
+"stok_id" int4 DEFAULT nextval('s_stok_stok_id_seq'::regclass) NOT NULL,
+"outlet_id" int4,
+"itemdet_id" int4,
+"stok_jumlah" int4,
+"stok_created_date" date,
+"stok_created_time" time(6),
+"stok_created_by" varchar(255) COLLATE "default",
+"stok_updated_date" date,
+"stok_updated_time" time(6),
+"stok_updated_by" varchar(255) COLLATE "default",
+"stok_revised" int4 DEFAULT 0
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of s_stok
+-- ----------------------------
+INSERT INTO "public"."s_stok" VALUES ('1', '1', '7', '100', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+INSERT INTO "public"."s_stok" VALUES ('2', '1', '8', '0', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+INSERT INTO "public"."s_stok" VALUES ('3', '1', '22', '150', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+
+-- ----------------------------
+-- Table structure for t_adjustment
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_adjustment";
+CREATE TABLE "public"."t_adjustment" (
+"adjustment_id" int4 DEFAULT nextval('t_adjustment_adjustment_id_seq'::regclass) NOT NULL,
+"adjustment_date" date,
+"adjustment_time" time(6),
+"outlet_id" int4,
+"adjustment_keterangan" varchar(255) COLLATE "default",
+"adjustment_created_date" date,
+"adjustment_created_time" time(6),
+"adjustment_created_by" varchar(255) COLLATE "default",
+"adjustment_updated_date" date,
+"adjustment_updated_time" time(6),
+"adjustment_updated_by" varchar(255) COLLATE "default",
+"adjustment_revised" int4 DEFAULT 0,
+"item_id" varchar(255) COLLATE "default"
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of t_adjustment
+-- ----------------------------
+INSERT INTO "public"."t_adjustment" VALUES ('1', '2017-08-08', '02:56:51', '1', '', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0', '["1","18"]');
+
+-- ----------------------------
+-- Table structure for t_adjustmentdet
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_adjustmentdet";
+CREATE TABLE "public"."t_adjustmentdet" (
+"adjustmentdet_id" int4 DEFAULT nextval('t_adjustmentdet_adjustmentdet_id_seq'::regclass) NOT NULL,
+"adjustment_id" int4,
+"itemdet_id" int4,
+"adjustmentdet_stok_awal" int4,
+"adjustmentdet_stok_koreksi" int4,
+"adjustmentdet_created_date" date,
+"adjustmentdet_created_time" time(6),
+"adjustmentdet_created_by" varchar(255) COLLATE "default",
+"adjustmentdet_updated_date" date,
+"adjustmentdet_updated_time" time(6),
+"adjustmentdet_updated_by" varchar(255) COLLATE "default",
+"adjustmentdet_revised" int4 DEFAULT 0
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of t_adjustmentdet
+-- ----------------------------
+INSERT INTO "public"."t_adjustmentdet" VALUES ('1', '1', '7', '0', '100', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+INSERT INTO "public"."t_adjustmentdet" VALUES ('2', '1', '8', '0', '0', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+INSERT INTO "public"."t_adjustmentdet" VALUES ('3', '1', '22', '0', '150', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+
+-- ----------------------------
+-- Table structure for t_transfer
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_transfer";
+CREATE TABLE "public"."t_transfer" (
+"transfer_id" int4 DEFAULT nextval('t_transfer_transfer_id_seq'::regclass) NOT NULL,
+"outlet_pengirim_id" int4,
+"outlet_penerima_id" int4,
+"transfer_tanggal" date,
+"transfer_jam" time(6),
+"transfer_keterangan" varchar(255) COLLATE "default" DEFAULT ''::character varying,
+"transfer_created_date" date,
+"transfer_created_time" time(6),
+"transfer_created_by" varchar(255) COLLATE "default",
+"transfer_updated_date" date,
+"transfer_updated_time" time(6),
+"transfer_updated_by" varchar(255) COLLATE "default",
+"transfer_revised" int4 DEFAULT 0
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of t_transfer
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_transferdet
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_transferdet";
+CREATE TABLE "public"."t_transferdet" (
+"transferdet_id" int4 DEFAULT nextval('t_transferdet_transferdet_id_seq'::regclass) NOT NULL,
+"transfer_id" int4,
+"itemdet_id" int4,
+"transferdet_stokawal_pengirim" int4,
+"transferdet_stokawal_penerima" int4,
+"transferdet_quantity" int4,
+"transferdet_created_date" date,
+"transferdet_created_time" time(6),
+"transferdet_created_by" varchar(255) COLLATE "default",
+"transferdet_updated_date" date,
+"transferdet_updated_time" time(6),
+"transferdet_updated_by" varchar(255) COLLATE "default",
+"transferdet_revised" int4 DEFAULT 0
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of t_transferdet
+-- ----------------------------
+
+-- ----------------------------
 -- Alter Sequences Owned By 
 -- ----------------------------
 ALTER SEQUENCE "public"."m_diskon_diskon_id_seq" OWNED BY "m_diskon"."diskon_id";
@@ -545,8 +791,14 @@ ALTER SEQUENCE "public"."m_itemdet_itemdet_id_seq" OWNED BY "m_itemdet"."itemdet
 ALTER SEQUENCE "public"."m_kategori_kategori_id_seq" OWNED BY "m_kategori"."kategori_id";
 ALTER SEQUENCE "public"."m_outlet_outlet_id_seq" OWNED BY "m_outlet"."outlet_id";
 ALTER SEQUENCE "public"."m_pajak_pajak_id_seq" OWNED BY "m_pajak"."pajak_id";
+ALTER SEQUENCE "public"."m_supplier_supplier_id_seq" OWNED BY "m_supplier"."supplier_id";
 ALTER SEQUENCE "public"."s_menu_menu_id_seq" OWNED BY "s_menu"."menu_id";
 ALTER SEQUENCE "public"."s_privilege_privilege_id_seq" OWNED BY "s_privilege"."privilege_id";
+ALTER SEQUENCE "public"."s_stok_stok_id_seq" OWNED BY "s_stok"."stok_id";
+ALTER SEQUENCE "public"."t_adjustment_adjustment_id_seq" OWNED BY "t_adjustment"."adjustment_id";
+ALTER SEQUENCE "public"."t_adjustmentdet_adjustmentdet_id_seq" OWNED BY "t_adjustmentdet"."adjustmentdet_id";
+ALTER SEQUENCE "public"."t_transfer_transfer_id_seq" OWNED BY "t_transfer"."transfer_id";
+ALTER SEQUENCE "public"."t_transferdet_transferdet_id_seq" OWNED BY "t_transferdet"."transferdet_id";
 
 -- ----------------------------
 -- Primary Key structure for table m_diskon
@@ -594,6 +846,11 @@ ALTER TABLE "public"."m_outlet" ADD PRIMARY KEY ("outlet_id");
 ALTER TABLE "public"."m_pajak" ADD PRIMARY KEY ("pajak_id");
 
 -- ----------------------------
+-- Primary Key structure for table m_supplier
+-- ----------------------------
+ALTER TABLE "public"."m_supplier" ADD PRIMARY KEY ("supplier_id");
+
+-- ----------------------------
 -- Primary Key structure for table s_menu
 -- ----------------------------
 ALTER TABLE "public"."s_menu" ADD PRIMARY KEY ("menu_id");
@@ -602,3 +859,28 @@ ALTER TABLE "public"."s_menu" ADD PRIMARY KEY ("menu_id");
 -- Primary Key structure for table s_privilege
 -- ----------------------------
 ALTER TABLE "public"."s_privilege" ADD PRIMARY KEY ("privilege_id");
+
+-- ----------------------------
+-- Primary Key structure for table s_stok
+-- ----------------------------
+ALTER TABLE "public"."s_stok" ADD PRIMARY KEY ("stok_id");
+
+-- ----------------------------
+-- Primary Key structure for table t_adjustment
+-- ----------------------------
+ALTER TABLE "public"."t_adjustment" ADD PRIMARY KEY ("adjustment_id");
+
+-- ----------------------------
+-- Primary Key structure for table t_adjustmentdet
+-- ----------------------------
+ALTER TABLE "public"."t_adjustmentdet" ADD PRIMARY KEY ("adjustmentdet_id");
+
+-- ----------------------------
+-- Primary Key structure for table t_transfer
+-- ----------------------------
+ALTER TABLE "public"."t_transfer" ADD PRIMARY KEY ("transfer_id");
+
+-- ----------------------------
+-- Primary Key structure for table t_transferdet
+-- ----------------------------
+ALTER TABLE "public"."t_transferdet" ADD PRIMARY KEY ("transferdet_id");

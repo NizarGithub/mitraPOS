@@ -87,3 +87,17 @@ $route['Library/Gratuity']						= 'library/C_gratuity';
 $route['Library/Gratuity/(:any)']				= 'library/C_gratuity/$1';
 $route['Library/Gratuity/(:any)/(:any)']		= 'library/C_gratuity/$1/$2';
 $route['Library/Gratuity/(:any)/(:any)/(:any)']	= 'library/C_gratuity/$1/$2/$3';
+
+$route['Inventory']									= 'inventory/C_supplier';
+$route['Inventory/Suppliers']						= 'inventory/C_supplier';
+$route['Inventory/Suppliers/(:any)']				= 'inventory/C_supplier/$1';
+$route['Inventory/Suppliers/(:any)/(:any)']			= 'inventory/C_supplier/$1/$2';
+$route['Inventory/Suppliers/(:any)/(:any)/(:any)']	= 'inventory/C_supplier/$1/$2/$3';
+$route['Inventory/Transfer']						= 'inventory/C_transfer';
+$route['Inventory/Transfer/(:any)']					= 'inventory/C_transfer/$1';
+$route['Inventory/Transfer/(:any)/(:any)']			= 'inventory/C_transfer/$1/$2';
+$route['Inventory/Transfer/(:any)/(:any)/(:any)']	= 'inventory/C_transfer/$1/$2/$3';
+$route['Inventory/Adjustment']						= 'inventory/C_adjustment';
+$route['Inventory/Adjustment/(:any)']				= 'inventory/C_adjustment/$1';
+$route['Inventory/Adjustment/(:any)/(:any)']		= 'inventory/C_adjustment/$1/$2';
+$route['Inventory/Adjustment/(:any)/(:any)/(:any)']	= 'inventory/C_adjustment/$1/$2/$3';

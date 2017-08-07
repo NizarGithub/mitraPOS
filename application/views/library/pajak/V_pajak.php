@@ -70,9 +70,9 @@
                                       <thead>
                                           <tr>
                                               <th> No </th>
-                                              <th> Nama Pajak </th>
+                                              <th> Nama </th>
                                               <th> Outlet </th>
-                                              <th> Status Pajak </th>
+                                              <th> Status </th>
                                               <th> Action </th>
                                           </tr>
                                       </thead>

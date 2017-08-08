@@ -149,6 +149,8 @@ class C_outlet extends MY_Controller {
 	}
 
 	public function loadDataSelect($tipe){
+		$outletId_param = @$this->input->get('outletId');
+
 		if ($tipe == 1) {
 
 			$param = $this->input->get('q');
@@ -174,10 +176,19 @@ class C_outlet extends MY_Controller {
 			$response['items'] = array();
 			if ($query<>false) {
 				foreach ($query->result() as $val) {
-					$response['items'][] = array(
-						'id'	=> $val->outlet_id,
-						'text'	=> $val->outlet_nama
-					);
+					if (strlen($outletId_param) > 0) {
+						if ($val->outlet_id != $outletId_param) {
+							$response['items'][] = array(
+								'id'	=> $val->outlet_id,
+								'text'	=> $val->outlet_nama
+							);
+						}
+					} else {
+						$response['items'][] = array(
+							'id'	=> $val->outlet_id,
+							'text'	=> $val->outlet_nama
+						);
+					}
 				}
 				$response['status'] = '200';
 			}
@@ -197,10 +208,19 @@ class C_outlet extends MY_Controller {
 			$response['items'] = array();
 			if ($query<>false) {
 				foreach ($query->result() as $val) {
-					$response['items'][] = array(
-						'id'	=> $val->outlet_id,
-						'text'	=> $val->outlet_nama
-					);
+					if (strlen($outletId_param) > 0) {
+						if ($val->outlet_id != $outletId_param) {
+							$response['items'][] = array(
+								'id'	=> $val->outlet_id,
+								'text'	=> $val->outlet_nama
+							);
+						}
+					} else {
+						$response['items'][] = array(
+							'id'	=> $val->outlet_id,
+							'text'	=> $val->outlet_nama
+						);
+					}
 				}
 				$response['status'] = '200';
 			}

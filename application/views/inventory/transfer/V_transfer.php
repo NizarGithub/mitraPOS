@@ -70,7 +70,8 @@
                                           <tr>
                                               <th> No </th>
                                               <th> Tanggal </th>
-                                              <th> Outlet </th>
+                                              <th> Dari Outlet </th>
+                                              <th> Ke Outlet </th>
                                               <th> Keterangan </th>
                                               <th> Action </th>
                                           </tr>
@@ -102,24 +103,37 @@
                                             <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button> Your form validation is successful! </div>
-                                        <input type="hidden" id="url" value="Inventory/Adjustment/postData/">
+                                        <input type="hidden" id="url" value="Inventory/Transfer/postData/">
                                         <input type="hidden" name="kode" readonly />
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">Outlet
+                                            <label class="control-label col-md-4">Dari Outlet
                                                 <span class="required"> * </span>
                                             </label>
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <select class="form-control select2" id="outlet_id" name="outlet_id" aria-required="true" aria-describedby="select-error" onchange="resetAdjustment()" required>
+                                                    <select class="form-control select2" id="outlet_pengirim_id" name="outlet_pengirim_id" aria-required="true" aria-describedby="select-error" onchange="resetTransfer()" required>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Ke Outlet
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <select class="form-control select2" id="outlet_penerima_id" name="outlet_penerima_id" aria-required="true" aria-describedby="select-error" required>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group last" style="margin: 20px 0 !important;">
-                                            <label class="control-label">ADJUSTMENT STOK</label>
+                                            <label class="control-label">TRANSFER STOK</label>
                                         </div>
                                         <hr>
 
@@ -149,7 +163,7 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <textarea class="form-control" rows="3" name="adjustment_keterangan"></textarea>
+                                                    <textarea class="form-control" rows="3" name="transfer_keterangan"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -216,9 +230,10 @@
                     $("#tableDiv").empty();
                     document.getElementById('simpan').disabled = false;
                     document.getElementById('btnAddDetail').disabled = false;
-                    document.getElementById('outlet_id').disabled = false;
+                    document.getElementById('outlet_penerima_id').disabled = false;
+                    document.getElementById('outlet_pengirim_id').disabled = false;
                     document.getElementById('item_id').disabled = false;
-                    document.getElementsByName('adjustment_keterangan')[0].disabled = false;
+                    document.getElementsByName('transfer_keterangan')[0].disabled = false;
                     $("#groupTambah").removeClass("hidden");
                 });                
 
@@ -237,9 +252,10 @@
                     $("#tableDiv").empty();
                     document.getElementById('simpan').disabled = false;
                     document.getElementById('btnAddDetail').disabled = false;
-                    document.getElementById('outlet_id').disabled = false;
+                    document.getElementById('outlet_penerima_id').disabled = false;
+                    document.getElementById('outlet_pengirim_id').disabled = false;
                     document.getElementById('item_id').disabled = false;
-                    document.getElementsByName('adjustment_keterangan')[0].disabled = false;
+                    document.getElementsByName('transfer_keterangan')[0].disabled = false;
                     $("#groupTambah").removeClass("hidden");
                 });
 
@@ -257,27 +273,28 @@
                     $("#tableDiv").empty();
                     document.getElementById('simpan').disabled = false;
                     document.getElementById('btnAddDetail').disabled = false;
-                    document.getElementById('outlet_id').disabled = false;
+                    document.getElementById('outlet_penerima_id').disabled = false;
+                    document.getElementById('outlet_pengirim_id').disabled = false;
                     document.getElementById('item_id').disabled = false;
-                    document.getElementsByName('adjustment_keterangan')[0].disabled = false;
+                    document.getElementsByName('transfer_keterangan')[0].disabled = false;
                     $("#groupTambah").removeClass("hidden");
                 });
 
                 $("#btnAddDetail").click(function(){
-                    adjustmentDetail = $("#jml_detail").val();
-                    if (adjustmentDetail == 0) {
+                    transferDetail = $("#jml_detail").val();
+                    if (transferDetail == 0) {
                         $("#tableTbody").empty();
                         $("#tableTbody2").empty();
                         $("#jml_detail").val(1);
                     }
                     
-                    adjustmentDetail = $("#jml_detail").val();
-                    if (adjustmentDetail == 1) {
+                    transferDetail = $("#jml_detail").val();
+                    if (transferDetail == 1) {
                         jmlItemDetail++;
                         $.ajax({
                             type : "GET",
                             url  : '<?php echo base_url();?>Library/Item/loadDataWhere',
-                            data : { id : document.getElementById("item_id").value, outletId : document.getElementById("outlet_id").value },
+                            data : { id : document.getElementById("item_id").value, outletId : document.getElementById("outlet_pengirim_id").value },
                             dataType : "json",
                             success:function(data){
                                 $("#tableDiv").append(' \
@@ -301,7 +318,7 @@
                                     <tr id="detail'+jmlItemDetail+'"> \
                                         <td class="text-center" width="50%"> VARIANT </td> \
                                         <td class="text-center" width="25%"> IN STOCK </td> \
-                                        <td class="text-center" width="25%"> ACTUAL STOCK </td> \
+                                        <td class="text-center" width="25%"> QUANTITY </td> \
                                     </tr> \
                                 ');                    
                                 if (data.val2.length > 1) {
@@ -318,14 +335,14 @@
                                         $("#tableTbody"+jmlItemDetail+"").append(' \
                                             <tr id="detail'+jmlItemDetail+'"> \
                                                 <td width="50%"> \
-                                                    <input type="hidden" id="itemdet_id'+jmlItemDetail+'" name="itemdet_id[]" value="'+data.val2[i].itemdet_id+'"> \
-                                                    <input type="text" class="form-control" id="itemdet_nama'+jmlItemDetail+'" name="itemdet_nama[]" value="'+data.val2[i].itemdet_nama+'" required readonly /> \
+                                                    <input type="hidden" id="itemdet_id'+jmlItemDetail+''+i+'" name="itemdet_id[]" value="'+data.val2[i].itemdet_id+'"> \
+                                                    <input type="text" class="form-control" id="itemdet_nama'+jmlItemDetail+''+i+'" name="itemdet_nama[]" value="'+data.val2[i].itemdet_nama+'" required readonly /> \
                                                 </td> \
                                                 <td width="25%"> \
-                                                    <input type="text" class="form-control num2" id="adjustmentdet_stok_awal'+jmlItemDetail+'" name="adjustmentdet_stok_awal[]" value="'+data.val2[i].stok_jumlah+'" required readonly /> \
+                                                    <input type="text" class="form-control num2" id="transferdet_stokawal_pengirim'+jmlItemDetail+''+i+'" name="transferdet_stokawal_pengirim[]" value="'+data.val2[i].stok_jumlah+'" required readonly /> \
                                                 </td> \
                                                 <td width="25%"> \
-                                                    <input type="text" class="form-control num2" id="adjustmentdet_stok_koreksi'+jmlItemDetail+'" name="adjustmentdet_stok_koreksi[]" value="0" required /> \
+                                                    <input type="text" class="form-control num2" id="transferdet_quantity'+jmlItemDetail+''+i+'" name="transferdet_quantity[]" value="0" onchange="checkStokReal('+jmlItemDetail+', '+i+')" required /> \
                                                 </td> \
                                             </tr> \
                                         ');
@@ -337,14 +354,14 @@
                                         $("#tableTbody"+jmlItemDetail+"").append(' \
                                             <tr id="detail'+jmlItemDetail+'"> \
                                                 <td width="50%"> \
-                                                    <input type="hidden" id="itemdet_id'+jmlItemDetail+'" name="itemdet_id[]" value="'+data.val2[i].itemdet_id+'"> \
-                                                    <input type="text" class="form-control" id="itemdet_nama'+jmlItemDetail+'" name="itemdet_nama[]" value="'+data.val[0].item_nama+'" required readonly /> \
+                                                    <input type="hidden" id="itemdet_id'+jmlItemDetail+''+i+'" name="itemdet_id[]" value="'+data.val2[i].itemdet_id+'"> \
+                                                    <input type="text" class="form-control" id="itemdet_nama'+jmlItemDetail+''+i+'" name="itemdet_nama[]" value="'+data.val[0].item_nama+'" required readonly /> \
                                                 </td> \
                                                 <td width="25%"> \
-                                                    <input type="text" class="form-control num2" id="adjustmentdet_stok_awal'+jmlItemDetail+'" name="adjustmentdet_stok_awal[]" value="'+data.val2[i].stok_jumlah+'" required readonly /> \
+                                                    <input type="text" class="form-control num2" id="transferdet_stokawal_pengirim'+jmlItemDetail+''+i+'" name="transferdet_stokawal_pengirim[]" value="'+data.val2[i].stok_jumlah+'" required readonly /> \
                                                 </td> \
                                                 <td width="25%"> \
-                                                    <input type="text" class="form-control num2" id="adjustmentdet_stok_koreksi'+jmlItemDetail+'" name="adjustmentdet_stok_koreksi[]" value="0" required /> \
+                                                    <input type="text" class="form-control num2" id="transferdet_quantity'+jmlItemDetail+''+i+'" name="transferdet_quantity[]" value="0" onchange="checkStokReal('+jmlItemDetail+', '+i+')" required /> \
                                                 </td> \
                                             </tr> \
                                         ');
@@ -367,13 +384,14 @@
                     "processing": true,
                     "serverSide": true,
                     ajax: {
-                      url: '<?php echo base_url();?>Inventory/Adjustment/loadData/'
+                      url: '<?php echo base_url();?>Inventory/Transfer/loadData/'
                     },
                     "columns": [
                       {"name": "no","orderable": false,"searchable": false,  "className": "text-center", "width": "5%"},
-                      {"name": "adjustment_date"},
-                      {"name": "outlet_nama"},
-                      {"name": "adjustment_keterangan"},
+                      {"name": "transfer_tanggal"},
+                      {"name": "outlet_pengirim_nama"},
+                      {"name": "outlet_penerima_nama"},
+                      {"name": "transfer_keterangan"},
                       {"name": "action","orderable": false,"searchable": false, "className": "text-center", "width": "15%"}
                     ],
                     // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -425,7 +443,7 @@
                 });
             }
 
-            function searchOutlet() {                
+            function searchOutlet() {
                 $.ajax({
                   type : "GET",
                   url  : '<?php echo base_url();?>Library/Outlet/loadDataSelect/2',
@@ -433,7 +451,27 @@
                   success:function(data){
                     
                     for(var i=0; i<data.items.length;i++){
-                        $('#outlet_id').append('<option id="outlet-'+data.items[i].id+'" value="'+data.items[i].id+'"> '+data.items[i].text+' </option>');
+                        $('#outlet_pengirim_id').append('<option id="outlet1-'+data.items[i].id+'" value="'+data.items[i].id+'"> '+data.items[i].text+' </option>');
+                    }
+
+                    setTimeout(function(){ searchOutlet2(); }, 600);
+
+                  }
+
+                });
+            }
+
+            function searchOutlet2() {
+                $('#outlet_penerima_id').empty();
+                $.ajax({
+                  type : "GET",
+                  url  : '<?php echo base_url();?>Library/Outlet/loadDataSelect/2',
+                  data : { outletId : document.getElementById("outlet_pengirim_id").value },
+                  dataType : "json",
+                  success:function(data){
+                    
+                    for(var i=0; i<data.items.length;i++){
+                        $('#outlet_penerima_id').append('<option id="outlet2-'+data.items[i].id+'" value="'+data.items[i].id+'"> '+data.items[i].text+' </option>');
                     }
 
                   }
@@ -477,11 +515,22 @@
                 searchItem();
             }
 
-            function resetAdjustment() {
+            function resetTransfer() {
                 for (var i = 1; i <= jmlItemDetail; i++) {
                     $("#default-div"+i).empty();
                 }
                 searchItem();
+                searchOutlet2();
+            }
+
+            function checkStokReal(idx1, idx2) {
+                stokReal        = parseFloat(document.getElementById('transferdet_stokawal_pengirim'+idx1+''+idx2).value.replace(/\,/g, ""));
+                stokTransfer    = parseFloat(document.getElementById('transferdet_quantity'+idx1+''+idx2).value.replace(/\,/g, ""));
+                if (stokTransfer > stokReal) {
+                    document.getElementById('transferdet_quantity'+idx1+''+idx2).value = stokReal;
+                    $('.num2').number( true, 2, '.', ',' );
+                    $('.num2').css('text-align', 'right');
+                }
             }
 
             function showForm(id) {
@@ -494,27 +543,32 @@
                 }
                 $.ajax({
                     type : "GET",
-                    url  : '<?php echo base_url();?>Inventory/Adjustment/loadDataWhere/',
+                    url  : '<?php echo base_url();?>Inventory/Transfer/loadDataWhere/',
                     data : "id="+id,
                     dataType : "json",
                     success:function(data){
                         for(var i=0; i<data.val.length;i++){
                             document.getElementsByName("kode")[0].value = data.val[i].kode;
-                            if (document.getElementById('outlet-'+data.val[i].outlet_id)) {
-                                document.getElementById('outlet-'+data.val[i].outlet_id).selected = true;
+                            if (document.getElementById('outlet1-'+data.val[i].outlet_pengirim_id)) {
+                                document.getElementById('outlet1-'+data.val[i].outlet_pengirim_id).selected = true;
                             }
-                            $('#outlet_id').select2();
-                            document.getElementsByName("adjustment_keterangan")[0].value = data.val[i].adjustment_keterangan;
-                            document.getElementById('outlet_id').disabled = true;
+                            if (document.getElementById('outlet2-'+data.val[i].outlet_penerima_id)) {
+                                document.getElementById('outlet2-'+data.val[i].outlet_penerima_id).selected = true;
+                            }
+                            $('#outlet_pengirim_id').select2();
+                            $('#outlet_penerima_id').select2();
+                            document.getElementsByName("transfer_keterangan")[0].value = data.val[i].transfer_keterangan;
+                            document.getElementById('outlet_pengirim_id').disabled = true;
+                            document.getElementById('outlet_penerima_id').disabled = true;
                             document.getElementById('item_id').disabled = true;
-                            document.getElementsByName('adjustment_keterangan')[0].disabled = true;
+                            document.getElementsByName('transfer_keterangan')[0].disabled = true;
                         }
                         
                         $("#tableDiv").empty();
 
                         for(var i=0; i<data.val2.length;i++){
                             jmlItemDetail++;
-                            if (data.val2[i].item_detail.val3.length > 1) {
+                            if (data.val2[i].item_detail.val3[0].flag == 1) {
                                 $("#tableDiv").append(' \
                                 <div id="default-div'+jmlItemDetail+'"> \
                                     <table class="table table-striped table-bordered table-hover table-checkable order-column table-scroll" id="default-table-detail'+jmlItemDetail+'"> \
@@ -522,7 +576,7 @@
                                             <tr id="detail'+jmlItemDetail+'"> \
                                                 <td class="text-center" width="50%"> VARIANT </td> \
                                                 <td class="text-center" width="25%"> IN STOCK </td> \
-                                                <td class="text-center" width="25%"> ACTUAL STOCK </td> \
+                                                <td class="text-center" width="25%"> QUANTITY </td> \
                                             </tr> \
                                             <tr id="detail'+jmlItemDetail+'"> \
                                                 <td colspan="3"> \
@@ -539,10 +593,10 @@
                                             '+data.val2[i].item_detail.val3[j].itemdet_nama+' \
                                         </td> \
                                         <td width="25%" class="text-right"> \
-                                            '+data.val2[i].item_detail.val3[j].adjustmentdet_stok_awal+' \
+                                            '+data.val2[i].item_detail.val3[j].transferdet_stokawal_pengirim+' \
                                         </td> \
                                         <td width="25%" class="text-right"> \
-                                            '+data.val2[i].item_detail.val3[j].adjustmentdet_stok_koreksi+' \
+                                            '+data.val2[i].item_detail.val3[j].transferdet_quantity+' \
                                         </td> \
                                     </tr>');
                                 }
@@ -554,17 +608,17 @@
                                             <tr id="detail'+jmlItemDetail+'"> \
                                                 <td class="text-center" width="50%"> VARIANT </td> \
                                                 <td class="text-center" width="25%"> IN STOCK </td> \
-                                                <td class="text-center" width="25%"> ACTUAL STOCK </td> \
+                                                <td class="text-center" width="25%"> QUANTITY </td> \
                                             </tr> \
                                             <tr id="detail'+jmlItemDetail+'"> \
                                                 <td width="50%"> \
                                                     '+data.val2[i].item_nama+' \
                                                 </td> \
                                                 <td width="25%" class="text-right"> \
-                                                    '+data.val2[i].item_detail.val3[0].adjustmentdet_stok_awal+' \
+                                                    '+data.val2[i].item_detail.val3[0].transferdet_stokawal_pengirim+' \
                                                 </td> \
                                                 <td width="25%" class="text-right"> \
-                                                    '+data.val2[i].item_detail.val3[0].adjustmentdet_stok_koreksi+' \
+                                                    '+data.val2[i].item_detail.val3[0].transferdet_quantity+' \
                                                 </td> \
                                             </tr> \
                                         </tbody> \

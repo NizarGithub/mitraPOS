@@ -234,7 +234,7 @@ class C_adjustment extends MY_Controller {
 									'stok_updated_by' 	=> $this->session->userdata('employee_username'),
 									'stok_revised' 		=> $val->stok_revised + 1,
 								);
-								$update_stok = $this->mod->insert_data_table('s_stok', $where_stok, $data_stok);
+								$update_stok = $this->mod->update_data_table('s_stok', $where_stok, $data_stok);
 							}
 						} else {
 							$data_stok = array(

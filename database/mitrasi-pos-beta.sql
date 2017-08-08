@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90603
 File Encoding         : 65001
 
-Date: 2017-08-08 04:10:12
+Date: 2017-08-08 17:50:08
 */
 
 
@@ -164,9 +164,9 @@ CREATE SEQUENCE "public"."s_stok_stok_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 3
+ START 6
  CACHE 1;
-SELECT setval('"public"."s_stok_stok_id_seq"', 3, true);
+SELECT setval('"public"."s_stok_stok_id_seq"', 6, true);
 
 -- ----------------------------
 -- Sequence structure for t_adjustment_adjustment_id_seq
@@ -176,9 +176,9 @@ CREATE SEQUENCE "public"."t_adjustment_adjustment_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 2
  CACHE 1;
-SELECT setval('"public"."t_adjustment_adjustment_id_seq"', 1, true);
+SELECT setval('"public"."t_adjustment_adjustment_id_seq"', 2, true);
 
 -- ----------------------------
 -- Sequence structure for t_adjustmentdet_adjustmentdet_id_seq
@@ -188,9 +188,9 @@ CREATE SEQUENCE "public"."t_adjustmentdet_adjustmentdet_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 3
+ START 5
  CACHE 1;
-SELECT setval('"public"."t_adjustmentdet_adjustmentdet_id_seq"', 3, true);
+SELECT setval('"public"."t_adjustmentdet_adjustmentdet_id_seq"', 5, true);
 
 -- ----------------------------
 -- Sequence structure for t_transfer_transfer_id_seq
@@ -200,8 +200,9 @@ CREATE SEQUENCE "public"."t_transfer_transfer_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 4
  CACHE 1;
+SELECT setval('"public"."t_transfer_transfer_id_seq"', 4, true);
 
 -- ----------------------------
 -- Sequence structure for t_transferdet_transferdet_id_seq
@@ -211,8 +212,9 @@ CREATE SEQUENCE "public"."t_transferdet_transferdet_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 1
+ START 5
  CACHE 1;
+SELECT setval('"public"."t_transferdet_transferdet_id_seq"', 5, true);
 
 -- ----------------------------
 -- Table structure for m_diskon
@@ -664,9 +666,11 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of s_stok
 -- ----------------------------
-INSERT INTO "public"."s_stok" VALUES ('1', '1', '7', '100', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
-INSERT INTO "public"."s_stok" VALUES ('2', '1', '8', '0', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
-INSERT INTO "public"."s_stok" VALUES ('3', '1', '22', '150', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+INSERT INTO "public"."s_stok" VALUES ('1', '1', '7', '60', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '17:49:33', 'admin', '2');
+INSERT INTO "public"."s_stok" VALUES ('2', '1', '8', '100', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '17:49:33', 'admin', '1');
+INSERT INTO "public"."s_stok" VALUES ('3', '1', '22', '110', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '17:48:20', 'admin', '1');
+INSERT INTO "public"."s_stok" VALUES ('5', '2', '7', '60', '2017-08-08', '17:31:08', 'admin', '2017-08-08', '17:48:20', 'admin', '2');
+INSERT INTO "public"."s_stok" VALUES ('6', '2', '22', '40', '2017-08-08', '17:48:20', 'admin', '2017-08-08', '17:48:20', 'admin', '0');
 
 -- ----------------------------
 -- Table structure for t_adjustment
@@ -695,6 +699,7 @@ WITH (OIDS=FALSE)
 -- Records of t_adjustment
 -- ----------------------------
 INSERT INTO "public"."t_adjustment" VALUES ('1', '2017-08-08', '02:56:51', '1', '', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0', '["1","18"]');
+INSERT INTO "public"."t_adjustment" VALUES ('2', '2017-08-08', '17:49:32', '1', '', '2017-08-08', '17:49:32', 'admin', '2017-08-08', '17:49:32', 'admin', '0', '["1"]');
 
 -- ----------------------------
 -- Table structure for t_adjustmentdet
@@ -724,6 +729,8 @@ WITH (OIDS=FALSE)
 INSERT INTO "public"."t_adjustmentdet" VALUES ('1', '1', '7', '0', '100', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
 INSERT INTO "public"."t_adjustmentdet" VALUES ('2', '1', '8', '0', '0', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
 INSERT INTO "public"."t_adjustmentdet" VALUES ('3', '1', '22', '0', '150', '2017-08-08', '02:56:51', 'admin', '2017-08-08', '02:56:51', 'admin', '0');
+INSERT INTO "public"."t_adjustmentdet" VALUES ('4', '2', '8', '0', '100', '2017-08-08', '17:49:33', 'admin', '2017-08-08', '17:49:33', 'admin', '0');
+INSERT INTO "public"."t_adjustmentdet" VALUES ('5', '2', '7', '40', '60', '2017-08-08', '17:49:33', 'admin', '2017-08-08', '17:49:33', 'admin', '0');
 
 -- ----------------------------
 -- Table structure for t_transfer
@@ -742,7 +749,8 @@ CREATE TABLE "public"."t_transfer" (
 "transfer_updated_date" date,
 "transfer_updated_time" time(6),
 "transfer_updated_by" varchar(255) COLLATE "default",
-"transfer_revised" int4 DEFAULT 0
+"transfer_revised" int4 DEFAULT 0,
+"item_id" varchar(255) COLLATE "default"
 )
 WITH (OIDS=FALSE)
 
@@ -751,6 +759,8 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of t_transfer
 -- ----------------------------
+INSERT INTO "public"."t_transfer" VALUES ('3', '1', '2', '2017-08-08', '17:33:19', '', '2017-08-08', '17:33:19', 'admin', '2017-08-08', '17:33:19', 'admin', '0', '["1"]');
+INSERT INTO "public"."t_transfer" VALUES ('4', '1', '2', '2017-08-08', '17:48:20', '-', '2017-08-08', '17:48:20', 'admin', '2017-08-08', '17:48:20', 'admin', '0', '["1","18"]');
 
 -- ----------------------------
 -- Table structure for t_transferdet
@@ -778,6 +788,9 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of t_transferdet
 -- ----------------------------
+INSERT INTO "public"."t_transferdet" VALUES ('3', '3', '7', '100', null, '50', '2017-08-08', '17:33:19', 'admin', '2017-08-08', '17:33:19', 'admin', '1');
+INSERT INTO "public"."t_transferdet" VALUES ('4', '4', '7', '50', '0', '10', '2017-08-08', '17:48:20', 'admin', '2017-08-08', '17:48:20', 'admin', '2');
+INSERT INTO "public"."t_transferdet" VALUES ('5', '4', '22', '150', null, '40', '2017-08-08', '17:48:20', 'admin', '2017-08-08', '17:48:20', 'admin', '0');
 
 -- ----------------------------
 -- Alter Sequences Owned By 

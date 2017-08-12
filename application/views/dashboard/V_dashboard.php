@@ -58,7 +58,7 @@
 
                                                 echo '
                                                 '.$anchor.'
-                                                <div class="tile '.$row->menu_color.'">
+                                                <div class="tile" style="background:'.$row->menu_color.' !important;">
                                                     <div class="tile-body">
                                                         <i class="'.$row->menu_icon.'"></i>
                                                     </div>

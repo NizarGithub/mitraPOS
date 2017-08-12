@@ -40,6 +40,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?php echo base_url()?>assets/theme/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url();?>assets/theme/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url();?>assets/theme/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="<?php echo base_url()?>assets/theme/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />

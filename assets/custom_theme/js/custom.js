@@ -103,13 +103,13 @@ function rules() {
 
     $('.decimal').css('text-align', 'right');
   
-  // $('.datepicker').datepicker({
-  //       locale: {
-  //           format: 'DD/MM/YYYY'
-  //       },
-  //       "opens": "left",
-  //       "drops": "down"
-  // });
+    $('.datepicker').datepicker({
+        locale: {
+            format: 'DD/MM/YYYY'
+        },
+        "opens": "left",
+        "drops": "down"
+    });
   // var dateToday = new Date();
   // $('.datepicker-range').daterangepicker({
   //       minDate : dateToday,

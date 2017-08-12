@@ -71,7 +71,10 @@
                                           <tr>
                                               <th> No </th>
                                               <th> Nama </th>
-                                              <th> Outlet </th>
+                                              <th> Sejak </th>
+                                              <th> Bulan ini </th>
+                                              <th> Tahun ini </th>
+                                              <th> Sampai Sekarang </th>
                                               <th> Status </th>
                                               <th> Action </th>
                                           </tr>
@@ -104,8 +107,8 @@
                                             <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
                                         <div class="alert alert-success display-hide">
                                             <button class="close" data-close="alert"></button> Your form validation is successful! </div>
-                                        <input type="hidden" id="url" value="Library/Kategori/postData/">
-                                        <input type="text" class="hidden" name="kode" readonly />
+                                        <input type="hidden" id="url" value="Customers/List/postData/">
+                                        <input type="hidden" name="kode" readonly />
 
                                         <div class="form-group">
                                             <label class="control-label col-md-4">Nama
@@ -114,32 +117,85 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <input type="text" class="form-control" name="kategori_nama" required />
+                                                    <input type="text" class="form-control" name="customer_nama" required />
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">Outlet
+                                            <label class="control-label col-md-4">Telepon
                                                 <span class="required"> * </span>
                                             </label>
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <select class="form-control select2" id="kategori_outlet" name="kategori_outlet" aria-required="true" aria-describedby="select-error" required>
-                                                        <option id="outlet-0" value="0" selected> Semua Outlet </option>
-                                                    </select>
+                                                    <input type="text" class="form-control telp" name="customer_telepon" required />
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-md-4">Keterangan
+                                            <label class="control-label col-md-4">Email
                                             </label>
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <textarea class="form-control" rows="3" name="kategori_keterangan"></textarea>
+                                                    <input type="email" class="form-control" name="customer_email" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Tanggal Lahir
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <input type="text" class="form-control datepicker" data-date-format="dd/mm/yyyy" name="customer_birthday" value="<?php echo date('d/m/Y');?>" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Alamat
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <textarea class="form-control" rows="3" name="customer_alamat"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Kota
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <input type="text" class="form-control" name="customer_kota" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Provinsi
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <input type="text" class="form-control" name="customer_provinsi" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Kode Pos
+                                            </label>
+                                            <div class="col-md-8">
+                                                <div class="input-icon right">
+                                                    <i class="fa"></i>
+                                                    <input type="text" class="form-control" name="customer_kodepos" />
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +207,7 @@
                                             <div class="col-md-8">
                                                 <div class="input-icon right">
                                                     <i class="fa"></i>
-                                                    <select class="form-control select2" name="kategori_status_aktif" aria-required="true" aria-describedby="select-error" required>
+                                                    <select class="form-control select2" name="customer_status_aktif" aria-required="true" aria-describedby="select-error" required>
                                                         <option id="aktif" value="y" selected> Aktif </option>
                                                         <option id="nonaktif" value="n"> Non Aktif </option>
                                                     </select>
@@ -194,7 +250,6 @@
             {
                 searchData();
                 rules();
-                searchOutlet();
 
                 $("#formAdd").submit(function(event){
                     actionData();
@@ -244,13 +299,16 @@
                     "processing": true,
                     "serverSide": true,
                     ajax: {
-                      url: '<?php echo base_url();?>Library/Kategori/loadData/'
+                      url: '<?php echo base_url();?>Customers/List/loadData/'
                     },
                     "columns": [
                       {"name": "no","orderable": false,"searchable": false,  "className": "text-center", "width": "5%"},
-                      {"name": "kategori_nama"},
-                      {"name": "outlet_nama"},
-                      {"name": "kategori_status_aktif"},
+                      {"name": "customer_nama"},
+                      {"name": "customer_created_date"},
+                      {"name": "total1", "className": "text-right"},
+                      {"name": "total2", "className": "text-right"},
+                      {"name": "total3", "className": "text-right"},
+                      {"name": "customer_status_aktif"},
                       {"name": "action","orderable": false,"searchable": false, "className": "text-center", "width": "15%"}
                     ],
                     // Internationalisation. For more info refer to http://datatables.net/manual/i18n
@@ -296,26 +354,10 @@
                         "targets": [0]
                     }],
                     "order": [
-                        [1, "asc"]
+                        [2, "desc"]
                     ],
                     "iDisplayLength": 10
                 });
-            }
-
-            function searchOutlet() {                
-                $.ajax({
-                  type : "GET",
-                  url  : '<?php echo base_url();?>Outlets/loadDataSelect/2',
-                  dataType : "json",
-                  success:function(data){
-                    
-                    for(var i=0; i<data.items.length;i++){
-                        $('#kategori_outlet').append('<option id="outlet-'+data.items[i].id+'" value="'+data.items[i].id+'"> '+data.items[i].text+' </option>');
-                    }
-
-                  }
-
-                });                
             }
 
             function showForm(id) {
@@ -328,21 +370,23 @@
                 }
                 $.ajax({
                     type : "GET",
-                    url  : '<?php echo base_url();?>Library/Kategori/loadDataWhere/',
+                    url  : '<?php echo base_url();?>Customers/List/loadDataWhere/',
                     data : "id="+id,
                     dataType : "json",
                     success:function(data){
                         for(var i=0; i<data.val.length;i++){
                             document.getElementsByName("kode")[0].value = data.val[i].kode;
-                            document.getElementsByName("kategori_nama")[0].value = data.val[i].kategori_nama;
-                            if (document.getElementById('outlet-'+data.val[i].kategori_outlet)) {
-                                document.getElementById('outlet-'+data.val[i].kategori_outlet).selected = true;    
-                            }
-                            $('#kategori_outlet').select2();
-                            document.getElementsByName("kategori_keterangan")[0].value = data.val[i].kategori_keterangan;
-                            if (data.val[i].kategori_status_aktif == 'y') {
+                            document.getElementsByName("customer_nama")[0].value = data.val[i].customer_nama;
+                            document.getElementsByName("customer_telepon")[0].value = data.val[i].customer_telepon;
+                            document.getElementsByName("customer_birthday")[0].value = data.val[i].customer_birthday;
+                            document.getElementsByName("customer_email")[0].value = data.val[i].customer_email;
+                            document.getElementsByName("customer_alamat")[0].value = data.val[i].customer_alamat;
+                            document.getElementsByName("customer_kota")[0].value = data.val[i].customer_kota;
+                            document.getElementsByName("customer_provinsi")[0].value = data.val[i].customer_provinsi;
+                            document.getElementsByName("customer_kodepos")[0].value = data.val[i].customer_kodepos;
+                            if (data.val[i].customer_status_aktif == 'y') {
                                 document.getElementById('aktif').selected = true;
-                            } else if (data.val[i].kategori_status_aktif == 'n') {
+                            } else if (data.val[i].customer_status_aktif == 'n') {
                                 document.getElementById('nonaktif').selected = true;
                             }
                         }
@@ -351,11 +395,11 @@
             }
 
             function setNonaktif(id) {
-              nonaktifData('Library/Kategori/nonaktifData', id);
+              nonaktifData('Customers/List/nonaktifData', id);
             }
 
             function setAktif(id) {
-              aktifData('Library/Kategori/aktifData', id);
+              aktifData('Customers/List/aktifData', id);
             }
 
         </script>

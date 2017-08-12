@@ -11,9 +11,21 @@ Target Server Type    : PGSQL
 Target Server Version : 90603
 File Encoding         : 65001
 
-Date: 2017-08-08 17:50:08
+Date: 2017-08-12 22:55:03
 */
 
+
+-- ----------------------------
+-- Sequence structure for m_customer_customer_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."m_customer_customer_id_seq";
+CREATE SEQUENCE "public"."m_customer_customer_id_seq"
+ INCREMENT 1
+ MINVALUE 1
+ MAXVALUE 9223372036854775807
+ START 1
+ CACHE 1;
+SELECT setval('"public"."m_customer_customer_id_seq"', 1, true);
 
 -- ----------------------------
 -- Sequence structure for m_diskon_diskon_id_seq
@@ -141,9 +153,9 @@ CREATE SEQUENCE "public"."s_menu_menu_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 11
+ START 18
  CACHE 1;
-SELECT setval('"public"."s_menu_menu_id_seq"', 11, true);
+SELECT setval('"public"."s_menu_menu_id_seq"', 18, true);
 
 -- ----------------------------
 -- Sequence structure for s_privilege_privilege_id_seq
@@ -215,6 +227,38 @@ CREATE SEQUENCE "public"."t_transferdet_transferdet_id_seq"
  START 5
  CACHE 1;
 SELECT setval('"public"."t_transferdet_transferdet_id_seq"', 5, true);
+
+-- ----------------------------
+-- Table structure for m_customer
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."m_customer";
+CREATE TABLE "public"."m_customer" (
+"customer_id" int4 DEFAULT nextval('m_customer_customer_id_seq'::regclass) NOT NULL,
+"customer_nama" varchar(255) COLLATE "default",
+"customer_email" varchar(255) COLLATE "default",
+"customer_telepon" varchar(255) COLLATE "default",
+"customer_birthday" date,
+"customer_alamat" varchar(255) COLLATE "default",
+"customer_kota" varchar(255) COLLATE "default",
+"customer_provinsi" varchar(255) COLLATE "default",
+"customer_kodepos" varchar(255) COLLATE "default",
+"customer_status_aktif" char(1) COLLATE "default" DEFAULT 'y'::bpchar,
+"customer_created_date" date,
+"customer_created_time" time(6),
+"customer_created_by" varchar(255) COLLATE "default",
+"customer_updated_date" date,
+"customer_updated_time" time(6),
+"customer_updated_by" varchar(255) COLLATE "default",
+"customer_revised" int4 DEFAULT 0
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of m_customer
+-- ----------------------------
+INSERT INTO "public"."m_customer" VALUES ('1', 'Customer 1', '', '0812', '1990-01-01', '-', 'Surabaya', 'Jawa Timur', '', 'y', '2017-08-11', '23:43:54', 'admin', '2017-08-12', '22:11:51', 'admin', '3');
 
 -- ----------------------------
 -- Table structure for m_diskon
@@ -313,7 +357,7 @@ COMMENT ON COLUMN "public"."m_employee_type"."employee_type_status_aktif" IS 'n 
 -- ----------------------------
 -- Records of m_employee_type
 -- ----------------------------
-INSERT INTO "public"."m_employee_type" VALUES ('1', 'Administrator', '-', 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."m_employee_type" VALUES ('1', 'Administrator', '-', 'y', null, null, null, '2017-08-12', '22:54:11', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for m_gratuity
@@ -576,17 +620,24 @@ COMMENT ON COLUMN "public"."s_menu"."menu_status_aktif" IS 'n = Tidak Aktif, y =
 -- ----------------------------
 -- Records of s_menu
 -- ----------------------------
-INSERT INTO "public"."s_menu" VALUES ('1', 'Library', '1', '0', '0', 'library', 'Library', 'Library', 'bg-red-sunglo', 'fa fa-book', 'y', null, null, null, null, null, null, '0');
-INSERT INTO "public"."s_menu" VALUES ('2', 'Outlet', '1', '1', '1', 'outlet', 'Library', 'Library/Outlet', null, null, 'y', null, null, null, null, null, null, '0');
-INSERT INTO "public"."s_menu" VALUES ('3', 'Kategori', '2', '1', '1', 'kategori', 'Library/Kategori', 'Library/Kategori', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('1', 'Library', '1', '0', '0', 'library', 'Library', 'Library', '#e74c3c', 'fa fa-book', 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('2', 'Outlet', '1', '1', '1', 'outlet', 'Library', 'Library/Outlet', null, null, 'n', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('3', 'Kategori', '2', '1', '1', 'kategori', 'Library', 'Library/Kategori', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('4', 'Diskon', '4', '1', '1', 'diskon', 'Library/Diskon', 'Library/Diskon', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('5', 'Pajak', '5', '1', '1', 'pajak', 'Library/Pajak', 'Library/Pajak', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('6', 'Gratuity', '6', '1', '1', 'gratuity', 'Library/Gratuity', 'Library/Gratuity', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('7', 'Item', '3', '1', '1', 'item', 'Library/Item', 'Library/Item', null, null, 'y', null, null, null, null, null, null, '0');
-INSERT INTO "public"."s_menu" VALUES ('8', 'Inventory', '2', '0', '0', 'inventory', 'Inventory', 'Inventory', 'bg-blue-madison', 'fa fa-archive', 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('8', 'Inventory', '2', '0', '0', 'inventory', 'Inventory', 'Inventory', '#34495e', 'fa fa-archive', 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('9', 'Suppliers', '1', '1', '8', 'suppliers', 'Inventory', 'Inventory/Suppliers', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('10', 'Transfer', '2', '1', '8', 'transfer', 'Inventory/Transfer', 'Inventory/Transfer', null, null, 'y', null, null, null, null, null, null, '0');
 INSERT INTO "public"."s_menu" VALUES ('11', 'Adjustment', '3', '1', '8', 'adjustment', 'Inventory/Adjustment', 'Inventory/Adjustment', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('12', 'Customers', '3', '0', '0', 'customers', 'Customers', 'Customers', '#2ecc71', 'fa fa-users', 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('13', 'Customers', '1', '1', '12', 'customers-list', 'Customers', 'Customers/List', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('14', 'Employees', '4', '0', '0', 'employees', 'Employees', 'Employees', '#95a5a6', 'fa fa-id-card-o', 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('15', 'Employees', '2', '1', '14', 'employees-list', 'Employees/List', 'Employees/List', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('16', 'Outlets', '5', '0', '0', 'outlets', 'Outlets', 'Outlets', '#e67e22', 'fa fa-home', 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('17', 'Outlets', '1', '1', '16', 'outlets', 'Outlets', 'Outlets', null, null, 'y', null, null, null, null, null, null, '0');
+INSERT INTO "public"."s_menu" VALUES ('18', 'Employee Type', '1', '1', '14', 'employee-type', 'Employees', 'Employees/Type', null, null, 'y', null, null, null, null, null, null, '0');
 
 -- ----------------------------
 -- Table structure for s_privilege
@@ -733,6 +784,35 @@ INSERT INTO "public"."t_adjustmentdet" VALUES ('4', '2', '8', '0', '100', '2017-
 INSERT INTO "public"."t_adjustmentdet" VALUES ('5', '2', '7', '40', '60', '2017-08-08', '17:49:33', 'admin', '2017-08-08', '17:49:33', 'admin', '0');
 
 -- ----------------------------
+-- Table structure for t_penjualan
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_penjualan";
+CREATE TABLE "public"."t_penjualan" (
+"penjualan_id" int4 NOT NULL,
+"outlet_id" int4,
+"customer_id" int4,
+"penjualan_tanggal" date,
+"penjualan_waktu" time(6),
+"penjualan_cash" int4,
+"penjualan_total" numeric(10,2),
+"penjualan_keterangan" varchar(255) COLLATE "default",
+"penjualan_created_date" date,
+"penjualan_created_time" time(6),
+"penjualan_created_by" varchar(255) COLLATE "default",
+"penjualan_updated_date" date,
+"penjualan_updated_time" time(6),
+"penjualan_updated_by" varchar(255) COLLATE "default",
+"penjualan_revised" int4 DEFAULT 0
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
+-- Records of t_penjualan
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_transfer
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."t_transfer";
@@ -795,6 +875,7 @@ INSERT INTO "public"."t_transferdet" VALUES ('5', '4', '22', '150', null, '40', 
 -- ----------------------------
 -- Alter Sequences Owned By 
 -- ----------------------------
+ALTER SEQUENCE "public"."m_customer_customer_id_seq" OWNED BY "m_customer"."customer_id";
 ALTER SEQUENCE "public"."m_diskon_diskon_id_seq" OWNED BY "m_diskon"."diskon_id";
 ALTER SEQUENCE "public"."m_employee_employee_id_seq" OWNED BY "m_employee"."employee_id";
 ALTER SEQUENCE "public"."m_employee_type_employee_type_id_seq" OWNED BY "m_employee_type"."employee_type_id";
@@ -812,6 +893,11 @@ ALTER SEQUENCE "public"."t_adjustment_adjustment_id_seq" OWNED BY "t_adjustment"
 ALTER SEQUENCE "public"."t_adjustmentdet_adjustmentdet_id_seq" OWNED BY "t_adjustmentdet"."adjustmentdet_id";
 ALTER SEQUENCE "public"."t_transfer_transfer_id_seq" OWNED BY "t_transfer"."transfer_id";
 ALTER SEQUENCE "public"."t_transferdet_transferdet_id_seq" OWNED BY "t_transferdet"."transferdet_id";
+
+-- ----------------------------
+-- Primary Key structure for table m_customer
+-- ----------------------------
+ALTER TABLE "public"."m_customer" ADD PRIMARY KEY ("customer_id");
 
 -- ----------------------------
 -- Primary Key structure for table m_diskon
@@ -887,6 +973,11 @@ ALTER TABLE "public"."t_adjustment" ADD PRIMARY KEY ("adjustment_id");
 -- Primary Key structure for table t_adjustmentdet
 -- ----------------------------
 ALTER TABLE "public"."t_adjustmentdet" ADD PRIMARY KEY ("adjustmentdet_id");
+
+-- ----------------------------
+-- Primary Key structure for table t_penjualan
+-- ----------------------------
+ALTER TABLE "public"."t_penjualan" ADD PRIMARY KEY ("penjualan_id");
 
 -- ----------------------------
 -- Primary Key structure for table t_transfer

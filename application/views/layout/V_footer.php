@@ -45,6 +45,10 @@
         <script src="<?php echo base_url();?>assets/theme/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url();?>assets/theme/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url();?>assets/theme/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url();?>assets/theme/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="<?php echo base_url()?>assets/theme/global/scripts/app.min.js" type="text/javascript"></script>

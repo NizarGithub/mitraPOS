@@ -322,7 +322,7 @@
             function searchOutlet() {                
                 $.ajax({
                   type : "GET",
-                  url  : '<?php echo base_url();?>Library/Outlet/loadDataSelect/2',
+                  url  : '<?php echo base_url();?>Outlets/loadDataSelect/2',
                   dataType : "json",
                   success:function(data){
                     

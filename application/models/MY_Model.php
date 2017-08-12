@@ -25,7 +25,7 @@ class MY_Model extends CI_Model {
     }
 
     // Select data on table
-    function select($select = NULL, $table = NULL, $join = NULL, $where = NULL, $where2 = NULL, $like = NULL, $order = NULL, $limit = NULL) {
+    function select($select = NULL, $table = NULL, $join = NULL, $where = NULL, $where2 = NULL, $like = NULL, $order = NULL, $limit = NULL, $group_by = NULL) {
         $this->db->select($select);
         $this->db->from($table);
         if ($join) {
@@ -53,6 +53,9 @@ class MY_Model extends CI_Model {
             for ($i=0; $i<sizeof($order['data']) ; $i++) {
                 $this->db->order_by($order['data'][$i]['column'], $order['data'][$i]['type']);
             }
+        }
+        if ($group_by) {
+            $this->db->group_by($group_by);
         }
 
         $query = $this->db->get();

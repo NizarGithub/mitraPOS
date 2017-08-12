@@ -446,7 +446,7 @@
             function searchOutlet() {
                 $.ajax({
                   type : "GET",
-                  url  : '<?php echo base_url();?>Library/Outlet/loadDataSelect/2',
+                  url  : '<?php echo base_url();?>Outlets/loadDataSelect/2',
                   dataType : "json",
                   success:function(data){
                     
@@ -465,7 +465,7 @@
                 $('#outlet_penerima_id').empty();
                 $.ajax({
                   type : "GET",
-                  url  : '<?php echo base_url();?>Library/Outlet/loadDataSelect/2',
+                  url  : '<?php echo base_url();?>Outlets/loadDataSelect/2',
                   data : { outletId : document.getElementById("outlet_pengirim_id").value },
                   dataType : "json",
                   success:function(data){
